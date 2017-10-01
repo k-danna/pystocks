@@ -1,14 +1,15 @@
 
 from datetime import datetime
 from account import Account
+from database import Database
 
 #account
 account = Account(1000.0)
 
-#load api obj, set key/secret from encrypted file
+#database
+db = Database('test.db')
 
-#misc variable for breakpoints, etc
-debug = True
+#load api obj, set key/secret from encrypted file
 
 #use historical data to test algo
 backtest = True
@@ -23,9 +24,7 @@ tickers = ['NFLX', 'AAPL', 'NEE', 'FNB']
 #cost per trade
 cost = 7.95
 
-#connection to database
-conn = 0
-
 #misc
+debug = True
 today = datetime.now()
 

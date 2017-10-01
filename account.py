@@ -6,6 +6,7 @@ class Account(object):
         self.networth = self.investment
         self.cash = self.investment
         self.buypower = self.cash * 0.3
+        self.open_positions = {'NFLX': 0} #symbol: shares
         self.update()
     
     def update(self):

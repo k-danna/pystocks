@@ -19,10 +19,10 @@ def main():
     #query api for balances, open positions, etc
     msg('getting account details')
     cfg.account.update()
-    cfg.account.info()
+    #cfg.account.info()
 
     #backtest algorithm
-    msg('beginning testing phase')
+    msg('beginning testing phase\n')
     if cfg.backtest:
         bt.backtest()
         msg('done testing\n')
