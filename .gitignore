@@ -1,0 +1,11 @@
+
+old/
+
+*.pyc
+*.swp
+*.json
+*.sql
+*.sqlite
+*.log
+*.bkp
+
