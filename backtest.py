@@ -7,9 +7,6 @@ import config as cfg
 from misc import *
 
 def backtest():
-    #make sure historical data is in database
-        #error, exit if not
-
     #iterate through weekdays since cfg.test_begin
     evals = {}
     for day in rrule.rrule(rrule.DAILY, dtstart=cfg.test_begin, 

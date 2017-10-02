@@ -1,3 +1,12 @@
 
 program that tests and can execute a trading algorithm
 
+TODO:
+    add full database functionality
+    load by ticker name
+        download csv, load to db
+    q-learning based machine learning algo
+        learn weights?
+
+
+
