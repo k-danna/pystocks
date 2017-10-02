@@ -1,4 +1,5 @@
 
+import config as cfg
 from math import floor
 
 #pretty print json object
@@ -41,7 +42,13 @@ def print_json(json, depth=1):
     indent('}', depth - 1)
 
 #debug print with symbol type
-def msg(string, symbol='*'):
-    print '[%s] %s' % (symbol, string)
+def msg(string, c='*', sym=True):
+    if sym:
+        print '[%s] %s' % (c, string)
+    else:
+        print '%s' % (string)
 
+#message on program start
+def welcome():
+    print '%s v%s' % (cfg.prog_name, cfg.prog_version)
 

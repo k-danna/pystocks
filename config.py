@@ -3,13 +3,16 @@ from datetime import datetime
 from account import Account
 from database import Database
 
-#account
-account = Account(1000.0)
+from misc import *
 
-#database
-db = Database('test.db')
+#program info
+prog_name = 'pystocks'
+prog_version = '0.0.1'
+welcome = '%s v%s\n' % (prog_name, prog_version)
 
-#load api obj, set key/secret from encrypted file
+#on-start message
+msg(welcome, sym=False)
+msg('initializing program')
 
 #use historical data to test algo
 backtest = True
@@ -27,4 +30,12 @@ cost = 7.95
 #misc
 debug = True
 today = datetime.now()
+
+#init account
+account = Account(1000.0)
+
+#init database
+db = Database('test.db')
+
+#load api obj, set key/secret from encrypted file
 

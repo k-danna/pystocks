@@ -12,7 +12,6 @@ from misc import *
 
 def main():
     #general init
-    msg('initializing program')
     msg(cfg.today)
     #load api obj, set key/secret from encrypted file
 

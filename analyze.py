@@ -23,15 +23,20 @@ class Analyze(object):
         self.evaluation = evaluation
 
     def calc_macd(self):
-        #macd, reverse macd
-        return 0.0
+        #diff of moving avgs
+        value = 0.0
+        self.indicators['macd_twolines'] = (value, 1.0)
+        self.indicators['macd_indicator'] = (value, 1.0)
+        self.indicators['macd_reverse'] = (value, 1.0)
 
-    def calc_volatility(self):
-        #bollinger bands
-        return 0.0
+    def calc_bollinger_bands(self):
+        #bollinger band volatility
+        value = 0.0
+        self.indicators['bollinger_bands'] = (value, 1.0)
 
     def calc_breakthrough(self):
         #support/resistance 
         #approaches supp/resist 1 goes to 0, if breakthrough goes to 1
-        return 0.0
+        value = 0.0
+        self.indicators['breakthrough'] = (value, 1.0)
 

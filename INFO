@@ -3,10 +3,22 @@ program that tests and can execute a trading algorithm
 
 TODO:
     add full database functionality
-    load by ticker name
+    update by ticker name
         download csv, load to db
     q-learning based machine learning algo
         learn weights?
+    stock prices --> graph --> pixels --> ml patterns
+        conv net for recognition
+        pattern dataset generated w/noise --> self labeled
+    support / resistance calcuations by gradient boosting methods
 
+    iterate through data once and calculate all indicators
 
+    add fields to analyze object
+        predicted price direction
+        predicted price after movement
+        predicted timeframe
+        current price
+        shares able to be bought (use to choose between ties, add to eval func)
+        
 
