@@ -1,11 +1,14 @@
 
-#calcs and uses indicators to determine buy or sell
+import config as cfg
+from misc import *
 
 class Analyze(object):
-    def __init__(self, symbol):
+    def __init__(self, symbol, date):
         self.symbol = symbol
         self.indicators = {'macd': (0.0, 1.0)} #value, weight
         self.evaluation = 0.0
+        self.date = date
+
         self.calc_indicators()
         self.evaluate()
     
@@ -13,6 +16,29 @@ class Analyze(object):
         print '[*] analyzing %s' % self.symbol
 
     def calc_indicators(self):
+        #FIXME: query needed info
+            #only one query, used by all methods
+        #query date in table for quotes, splits, dividends
+        data = cfg.db.cur.execute(
+            'select * from %s where Date=?' % self.symbol, (self.date,)
+        )
+        data = cfg.db.cur.fetchall()
+        
+        #unpack data
+        ID, Date, Open, High, Low, Close, AdjClose, Volume = data[0]
+        msg(Date)
+        msg(Open)
+        msg(High)
+        msg(Low)
+        msg(Close)
+        msg(AdjClose)
+        msg(Volume)
+
+
+        #query prev info / indicators
+            #dont recalculate
+        #if indicators missing
+            #calc and insert
         self.calc_macd()
 
     def evaluate(self):

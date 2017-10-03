@@ -2,7 +2,7 @@
 program that tests and can execute a trading algorithm
 
 TODO:
-    load database
+    auto update csv files
         database.update_symbol()
     backtest
         trade randomly

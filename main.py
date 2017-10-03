@@ -20,10 +20,10 @@ def main():
     #cfg.account.info()
 
     #backtest algorithm
-    msg('beginning testing phase\n')
+    msg('beginning backtest\n')
     if cfg.backtest:
         bt.backtest()
-        msg('done testing\n')
+        msg('done testing')
         cfg.account.info()
 
     #msg('monitoring specified symbols')
