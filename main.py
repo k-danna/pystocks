@@ -12,7 +12,6 @@ from misc import *
 
 def main():
     #general init
-    msg(cfg.today)
     #load api obj, set key/secret from encrypted file
 
     #query api for balances, open positions, etc

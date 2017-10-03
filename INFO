@@ -2,7 +2,23 @@
 program that tests and can execute a trading algorithm
 
 TODO:
+    load database
+        database.update_symbol()
+    backtest
+        trade randomly
+        account for splits, dividends
+    analyze class
+        all indicators
+        
+
+
+FUTURE:
+    ACCOUNT FOR SPLITS / DIVIDENDS
+        yahoo finance has this info
+    read the news (yahoo rss feeds are ticker based)
+        https://developer.yahoo.com/finance/
     add full database functionality
+        store all things that happen
     update by ticker name
         download csv, load to db
     q-learning based machine learning algo
@@ -21,4 +37,6 @@ TODO:
         current price
         shares able to be bought (use to choose between ties, add to eval func)
         
+    package the program into executable
+        http://py2exe.org/index.cgi/Tutorial
 

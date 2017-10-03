@@ -17,7 +17,7 @@ def backtest():
             continue
 
         #debug
-        msg(date)
+        #msg(date)
 
         #query current, prevs days info
             #if dne calc and insert

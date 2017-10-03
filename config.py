@@ -8,7 +8,10 @@ from misc import *
 #program info
 prog_name = 'pystocks'
 prog_version = '0.0.1'
-welcome = '%s v%s\n' % (prog_name, prog_version)
+
+#welcome message
+today = datetime.now()
+welcome = '%s v%s (%s)\n' % (prog_name, prog_version, today)
 
 #on-start message
 msg(welcome, sym=False)
@@ -24,15 +27,16 @@ tick_interval = 10.0
 #target tickers for trading
 tickers = ['NFLX', 'AAPL', 'NEE', 'FNB']
 
-#cost per trade
+#misc vars, cost per trade
+start_cash = 3000
+risk = 0.3
 cost = 7.95
 
 #misc
 debug = True
-today = datetime.now()
 
 #init account
-account = Account(1000.0)
+account = Account()
 
 #init database
 db = Database('test.db')
