@@ -2,13 +2,15 @@
 program that tests and can execute a trading algorithm
 
 TODO:
-    everywhere
-        round all values down to two decimal places
-    backtest
-        output stats
+    evaluation number - buy/sell relationship
+        ie sell if < 0? by how much?
     analyze class
         all indicators
-        implement eval for trading
+        eval
+    backtest
+        output stats
+    everywhere
+        round all cash values down to two decimal places, int round shares
     backtest
         batch testing
         more stats
