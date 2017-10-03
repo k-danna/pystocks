@@ -5,16 +5,22 @@ TODO:
     auto update csv files
         database.update_symbol()
     backtest
-        trade randomly
+        trade randomly for now
         account for splits, dividends
     analyze class
         all indicators
-        
+        implement eval for trading
+    backtest
+        batch testing
+        output stats
 
 
 FUTURE:
+    auto download an updated csv
+        https://github.com/dennislwy/YahooFinanceAPI
+        https://stackoverflow.com/questions/44105187/error-in-downloading-csv-from-new-yahoo-finance-historical-data
     ACCOUNT FOR SPLITS / DIVIDENDS
-        yahoo finance has this info
+        info already in db
     read the news (yahoo rss feeds are ticker based)
         https://developer.yahoo.com/finance/
     add full database functionality

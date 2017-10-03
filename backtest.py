@@ -13,6 +13,8 @@ def backtest():
         #this solves trading in depression vs bubble / overfitting to past
             #test with random located, length intervals of time
             #start randomly, trade until random date, take stats
+        #aka batch test with random intervals, starting points
+
 
     #iterate through weekdays since cfg.test_begin
     for day in rrule.rrule(rrule.DAILY, dtstart=cfg.test_begin, 
@@ -37,9 +39,9 @@ def backtest():
         #choose best evaluation and trade if able to
         msg(evals)
 
-    #output stats
+    #output/store batch stats
         #data time interval (bars)
-    #min/max/avg/net
+    #min/max/avg
         #trade time length
         #num trades per symbol
         #good bad trade ratio
@@ -49,6 +51,7 @@ def backtest():
         #return per year
         #risk adjusted return
     
+    #output/store min/max/avg net stats for all batches
 
     #debug spacing
     print

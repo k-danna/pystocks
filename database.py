@@ -102,10 +102,8 @@ class Database(object):
 
 
 #
-# import csv
-# bash > sqlite3 test.db
-# sqlite3 > create table AAPL (Date, Open, High, Low, Close, Adj Close, Volume)
-# sqlite3 > .mode csv
-# sqlite3 > .import data/AAPL.csv AAPL
+# finance new api now requires cookies
+#https://stackoverflow.com/questions/44105187/error-in-downloading-csv-from-new-yahoo-finance-historical-data
+#https://github.com/dennislwy/YahooFinanceAPI
 #
 
