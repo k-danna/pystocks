@@ -1,4 +1,6 @@
 
+import random
+
 import config as cfg
 from misc import *
 
@@ -8,12 +10,13 @@ class Analyze(object):
         self.indicators = {'macd': (0.0, 1.0)} #value, weight
         self.evaluation = 0.0
         self.date = date
+        self.price = 0.0
 
         self.calc_indicators()
         self.evaluate()
     
     def info(self):
-        print '[*] analyzing %s' % self.symbol
+        msg('analyzing %s %s' % (self.symbol, self.date))
 
     def calc_indicators(self):
         #FIXME: query needed info
@@ -23,16 +26,23 @@ class Analyze(object):
             'select * from %s where Date=?' % self.symbol, (self.date,)
         )
         data = cfg.db.cur.fetchall()
-        
+
+        if len(data) == 0:
+            #msg('no data: %s' % self.symbol)
+            return
+
         #unpack data
         ID, Date, Open, High, Low, Close, AdjClose, Volume = data[0]
-        msg(Date)
-        msg(Open)
-        msg(High)
-        msg(Low)
-        msg(Close)
-        msg(AdjClose)
-        msg(Volume)
+        #msg(Date)
+        #msg(Open)
+        #msg(High)
+        #msg(Low)
+        #msg(Close)
+        #msg(AdjClose)
+        #msg(Volume)
+
+        #debug
+        self.price = AdjClose
 
         #FIXME: normalize for splits, dividends
             #close adjusted for splits
@@ -50,6 +60,10 @@ class Analyze(object):
             value, weight = self.indicators[key]
             evaluation += value * weight
         self.evaluation = evaluation
+        
+        if cfg.random_trades:
+            scalar = 1 if random.random() < 0.5 else -1
+            self.evaluation = scalar * random.random() * 10
 
     def calc_macd(self):
         #diff of moving avgs

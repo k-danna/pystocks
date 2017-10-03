@@ -11,20 +11,15 @@ import backtest as bt
 from misc import *
 
 def main():
-    #general init
-    #load api obj, set key/secret from encrypted file
-
-    #query api for balances, open positions, etc
-    msg('getting account details')
-    cfg.account.update()
-    #cfg.account.info()
+    #general init done on config import
+    cfg.account.info(cfg.today)
 
     #backtest algorithm
-    msg('beginning backtest\n')
+    msg('beginning backtest\n', '+')
     if cfg.backtest:
         bt.backtest()
-        msg('done testing')
-        cfg.account.info()
+        msg('done testing', '+')
+        cfg.account.info(cfg.today)
 
     #msg('monitoring specified symbols')
     #for each symbol in cfg.tickers

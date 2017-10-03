@@ -2,17 +2,20 @@
 program that tests and can execute a trading algorithm
 
 TODO:
-    auto update csv files
-        database.update_symbol()
+    everywhere
+        round all values down to two decimal places
     backtest
-        trade randomly for now
-        account for splits, dividends
+        output stats
     analyze class
         all indicators
         implement eval for trading
     backtest
         batch testing
-        output stats
+        more stats
+    auto update csv files
+        database.update_symbol()
+    backtest
+        account for splits, dividends
 
 
 FUTURE:

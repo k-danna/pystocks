@@ -42,11 +42,12 @@ def print_json(json, depth=1):
     indent('}', depth - 1)
 
 #debug print with symbol type
-def msg(string, c='*', sym=True):
-    if sym:
-        print '[%s] %s' % (c, string)
-    else:
-        print '%s' % (string)
+def msg(string, c='*', ind=0,):
+    if cfg.log_level > 0 and c == '*':
+        return
+    for _ in range(ind):
+        print '    ',
+    print '[%s] %s' % (c, string)
 
 #message on program start
 def welcome():

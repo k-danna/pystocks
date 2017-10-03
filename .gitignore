@@ -5,6 +5,7 @@ data/
 
 *.pyc
 *.swp
+*.tmp
 *.json
 *.sql
 *.sqlite

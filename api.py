@@ -7,28 +7,33 @@ from misc import *
 class API(object):
     def __init__(self, interval):
         self.interval = interval
-        self.key = ''
-        self.secret = ''
+        msg('connected to api', '+')
 
-    def buy(symbol, shares, price):
-        msg('bought %s %s at %s', % (shares, symbol), '+')
-        cfg.account.positions[symbol] += shares
+    def buy(self, symbol, shares, price, date):
+        msg(date)
+        msg('bought %s %s at %s' % (shares, symbol, price), '+', ind=1)
+        cfg.account.cash -= cfg.commission
         cfg.account.cash -= (shares * price)
-        pass
+        cfg.account.positions[symbol] += shares
 
-    def sell(symbol, shares, price):
-        msg('sold %s %s at %s', % (shares, symbol), '+')
-        cfg.account.positions[symbol] -= shares
+        cfg.account.update(date)
+
+    def sell(self, symbol, shares, price, date):
+        msg(date)
+        msg('sold %s %s at %s' % (shares, symbol, price), '+', ind=1)
+        cfg.account.cash -= cfg.commission
         cfg.account.cash += (shares * price)
-        pass
+        cfg.account.positions[symbol] -= shares
+        
+        cfg.account.update(date)
 
-    def flatten(symbol, price):
+    def flatten(self, symbol, price, date):
         shares = cfg.account.positions[symbol]
-            if shares > 0:
-                self.sell(symbol, shares, price)
-            elif shares < 0:
-                self.buy(symbol, shares, price)
+        if shares > 0:
+            self.sell(symbol, shares, price, date)
+        elif shares < 0:
+            self.buy(symbol, shares, price, date)
 
-    def get_account(self):
+    def get_balance(self):
         pass
 
