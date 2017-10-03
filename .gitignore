@@ -1,6 +1,7 @@
 
 old/
 data/
+.DS_Store
 
 *.pyc
 *.swp

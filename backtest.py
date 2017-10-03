@@ -23,22 +23,15 @@ def backtest():
 
         evals = {}
         for symbol in cfg.tickers:
-            #query date for split, dividends
-                #db close price adjusted for splits
-                #db adjclose price adjusted for splits and dividends
-
             #analyze
-
-            #FIXME: store in structure with max evals at top
-                #aka evals[0] = max
-                #check evals[1] for tie and choose cheaper stock
             obj = lyz.Analyze(symbol, date)
             evals[symbol] = obj.evaluation
 
         #choose best evaluation and trade if able to
         msg(evals)
     
-    print #debug spacing
+    #debug spacing
+    print
 
 def best_eval(evals):
     #break tie with shareprice, lower = better

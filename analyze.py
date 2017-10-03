@@ -34,6 +34,9 @@ class Analyze(object):
         msg(AdjClose)
         msg(Volume)
 
+        #FIXME: normalize for splits, dividends
+            #close adjusted for splits
+            #adjclose adjusted for splits, dividends
 
         #query prev info / indicators
             #dont recalculate
