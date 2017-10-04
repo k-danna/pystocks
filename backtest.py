@@ -7,8 +7,6 @@ import analyze as lyz
 import config as cfg
 from misc import *
 
-random.seed(cfg.seed)
-
 def backtest():
     
     #TODO: backtest starting each day
@@ -31,6 +29,9 @@ def backtest():
         #if date != '2017-09-29':
         #    continue
 
+        #FIXME: move choosing best and trading off eval value to lyz module
+            #method should return ('ticker', 'buy/sell/close', 'shares')
+
         #analyze and choose best evaluation
         evals = {}
         best = ()
@@ -49,27 +50,18 @@ def backtest():
             #no short selling for now
         min_buy = (cfg.minshares * choice.price) + (2 * cfg.commission)
         min_sell = cfg.commission
-        if choice.evaluation > 0.0 and cfg.account.buypower > min_buy:
+        if (choice.evaluation > cfg.eval_threshold 
+                and cfg.account.buypower > min_buy):
             #buy
-            cfg.api.buy(choice.symbol, cfg.minshares, choice.price, 
+            shares = int(cfg.account.buypower / choice.price)
+            cfg.api.buy(choice.symbol, shares, choice.price, 
                     date)
-        elif choice.evaluation < 0.0 and cfg.account.buypower > min_sell:
+        elif (choice.evaluation < cfg.eval_threshold 
+                and cfg.account.buypower > min_sell):
             #sell if we own the symbol
             cfg.api.flatten(choice.symbol, choice.price, date)
 
-
-
-        #buy or sell
-        #if cfg.account.positions[choice.symbol] == 0:
-        #    #make sure we have money
-        #    if cfg.account.buypower > (cfg.minshares * choice.price):
-        #        cfg.api.buy(choice.symbol, cfg.minshares, choice.price, 
-        #                date)
-        #else:
-        #    #sell if already bought
-        #    cfg.api.flatten(choice.symbol, choice.price, date)
-        
-        #update account
+        #update account every day
         cfg.account.update(date)
 
     #flatten any open positions at end

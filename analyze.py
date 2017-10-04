@@ -1,5 +1,12 @@
 
+import sys
 import random
+import numpy as np
+import talib as ta
+    #list of functions
+    #print ta.get_functions()
+    #print ta.get_function_groups()
+
 
 import config as cfg
 from misc import *
@@ -44,6 +51,16 @@ class Analyze(object):
         #debug
         self.price = AdjClose
 
+        #functions by group
+        groups = ta.get_function_groups()
+        for group in groups:
+            print group
+            print '    ' + str(groups[group])
+            print
+
+        #debug
+        sys.exit()
+
         #FIXME: normalize for splits, dividends
             #close adjusted for splits
             #adjclose adjusted for splits, dividends
@@ -63,7 +80,7 @@ class Analyze(object):
         
         if cfg.random_trades:
             scalar = 1 if random.random() < 0.5 else -1
-            self.evaluation = scalar * random.random() * 10
+            self.evaluation = scalar * random.random()
 
     def calc_macd(self):
         #diff of moving avgs

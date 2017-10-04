@@ -29,12 +29,14 @@ risk = 0.3
 commission = 7.95
 minshares = 10
 tick_interval = 10
+eval_threshold = 0.99
+random_trades = True
 
 #misc
 debug = True
 log_level = 0 #0-debug, 1-info
 seed = 42
-random_trades = True
+random.seed(cfg.seed)
 
 #init database
 db = Database('test.db')

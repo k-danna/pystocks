@@ -11,6 +11,8 @@ TODO:
         output stats
     everywhere
         round all cash values down to two decimal places, int round shares
+    config
+        organize, group into dicts, etc
     backtest
         batch testing
         more stats
