@@ -17,7 +17,7 @@ def main():
     #backtest algorithm
     msg('beginning backtest\n', '+')
     if cfg.backtest:
-        bt.backtest()
+        bt.test()
         msg('done testing', '+')
         cfg.account.info(cfg.today)
 

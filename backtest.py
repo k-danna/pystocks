@@ -7,7 +7,7 @@ import analyze as lyz
 import config as cfg
 from misc import *
 
-def backtest():
+def test():
     
     #TODO: backtest starting each day
         #save and avg stats per each
@@ -15,11 +15,9 @@ def backtest():
             #this solves trading in depression vs bubble and overfitting
                 #test with randomly located, length intervals of time
 
-    first_day = cfg.test_begin
-    last_day = cfg.test_end
     #iterate daily through weekdays
-    for day in rrule.rrule(rrule.DAILY, dtstart=first_day, 
-            until=last_day):
+    for day in rrule.rrule(rrule.DAILY, dtstart=cfg.test_begin, 
+            until=cfg.test_end):
 
         #skip weekends, holidays (only for holidays 1995 onward)
         date = str(day.date()) #formate date for db
@@ -49,7 +47,7 @@ def backtest():
         cfg.account.update(date)
 
     #flatten any open positions at end
-    cfg.api.close_all(str(last_day.date))
+    cfg.api.close_all(str(cfg.test_end.date))
 
     #update account
     cfg.account.update(date)
