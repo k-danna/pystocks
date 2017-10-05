@@ -106,6 +106,7 @@ class Account(object):
 
     def update(self, date):
         #update networth
+            #query and add all open position values to balance
         self.networth = self.cash
         for symbol in self.positions:
             data = cfg.db.cur.execute(
@@ -138,45 +139,55 @@ class Account(object):
 
     def calc_stats(self):
         stats = self.init_stats()
-        stats['inital_investment'] = cfg.start_cash
-        stats['networth'] = self.networth
-        stats['roi'] = ( self.networth - cfg.start_cash) / cfg.start_cash
 
+        #iterate through all trades made
         profits = []
-        symbol_trade_counts = []
+        trade_counts = []
         trade_lengths = []
         for symbol in self.trades:
-            #keep track of trade counts
-            symbol_trade_counts.append(float(len(self.trades[symbol])))
+            #track trade counts
+            trade_counts.append(float(len(self.trades[symbol])))
             for date_bought, date_sold, price_bought, price_sold, \
                     shares in self.trades[symbol]:
-                #calc profits
+                
+                #track profits
                 profit = ((shares * price_sold - shares * price_bought) 
                         - 2 * cfg.commission)
                 profits.append(profit)
                 msg('%s %s %s' % (date_sold, symbol, profit), c=(
                         '+' if profit > 0 else '-'))
-                #calc trade timeframes
+                
+                #track trade timeframes
                 year, month, day = [int(x) for x in date_sold.split('-')]
                 sold = datetime(year, month, day)
                 year, month, day = [int(x) for x in date_bought.split('-')]
                 bought = datetime(year, month, day)
                 trade_lengths.append((sold - bought).days)
-        #calc stats
-        stats['total_trades'] = sum(symbol_trade_counts)
-        #stats['min_trades_symbol'] = min(symbol_trade_counts)
-        #stats['max_trades_symbol'] = max(symbol_trade_counts)
-        #stats['avg_trades_symbol'] = sum(symbol_trade_counts
-        #        ) / len(symbol_trade_counts)
+
+        #calc account based stats
+        stats['inital_investment'] = cfg.start_cash
+        stats['networth'] = self.networth
+        stats['roi'] = ( self.networth - cfg.start_cash) / cfg.start_cash
+        
+        #calc trade count stats
+        stats['total_trades'] = sum(trade_counts)
+        #stats['min_trades_symbol'] = min(trade_counts)
+        #stats['max_trades_symbol'] = max(trade_counts)
+        #stats['avg_trades_symbol'] = sum(trade_counts) / len(trade_counts)
         stats['good_trades'] = float(len([x for x in profits if x > 0.0]))
         stats['bad_trades'] = float(len([x for x in profits if x <= 0.0]))
         stats['good/bad ratio'] = stats['good_trades'] / stats['bad_trades']
+        
+        #calc profit stats
         stats['min_profit'] = min(profits)
         stats['max_profit'] = max(profits)
         stats['avg_profit'] = sum(profits) / len(profits)
+        
+        #calc timeframe stats
         stats['min_trade_len'] = min(trade_lengths)
         stats['max_trade_len'] = max(trade_lengths)
         stats['avg_trade_len'] = sum(trade_lengths) / len(trade_lengths)
+        
         return stats
 
     def info(self, date):
