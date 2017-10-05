@@ -2,18 +2,19 @@
 program that tests and can execute a trading algorithm
 
 TODO:
-    evaluation number - buy/sell relationship
-        ie sell if < 0? by how much?
     analyze class
         all indicators
         eval
+        pick_trade
     backtest
         output stats
     everywhere
         round all cash values down to two decimal places, int round shares
+    analyze
+        pick_trades share count
     config
         organize, group into dicts, etc
-    backtest
+    train
         batch testing
         more stats
     auto update csv files

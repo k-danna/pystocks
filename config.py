@@ -7,7 +7,7 @@ from database import Database
 
 #program info
 prog_name = 'pystocks'
-prog_version = '0.0.1'
+prog_version = '0.1.0'
 
 #welcome message
 today = datetime.now()
