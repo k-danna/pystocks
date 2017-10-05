@@ -6,25 +6,23 @@ import talib as ta
     #list of functions
     #print ta.get_functions()
     #print ta.get_function_groups()
-
-
+#https://github.com/mrjbq7/ta-lib
+#http://www.eickonomics.com/posts/2014-03-25-python-vs-R-adding-TA-
+        #indicators/
 import config as cfg
 from misc import *
 
 class Analyze(object):
     def __init__(self, symbol, date):
         self.symbol = symbol
-        self.indicators = {'macd': (0.0, 1.0)} #value, weight
-        self.evaluation = 0.0
         self.date = date
+        self.indicators = {'macd': (0.0, 1.0)} #indicator: (value, weight)
+        self.evaluation = 0.0
         self.price = 0.0
 
         self.calc_indicators()
         self.evaluate()
     
-    def info(self):
-        msg('analyzing %s %s' % (self.symbol, self.date))
-
     def calc_indicators(self):
         #FIXME: query needed info
             #only one query, used by all methods
@@ -52,14 +50,14 @@ class Analyze(object):
         self.price = AdjClose
 
         #functions by group
-        groups = ta.get_function_groups()
-        for group in groups:
-            print group
-            print '    ' + str(groups[group])
-            print
+        #groups = ta.get_function_groups()
+        #for group in groups:
+        #    print group
+        #    print '    ' + str(groups[group])
+        #    print
 
         #debug
-        sys.exit()
+        #sys.exit()
 
         #FIXME: normalize for splits, dividends
             #close adjusted for splits
@@ -69,7 +67,7 @@ class Analyze(object):
             #dont recalculate
         #if indicators missing
             #calc and insert
-        self.calc_macd()
+        pass
 
     def evaluate(self):
         evaluation = 0.0
@@ -81,22 +79,4 @@ class Analyze(object):
         if cfg.random_trades:
             scalar = 1 if random.random() < 0.5 else -1
             self.evaluation = scalar * random.random()
-
-    def calc_macd(self):
-        #diff of moving avgs
-        value = 0.0
-        self.indicators['macd_twolines'] = (value, 1.0)
-        self.indicators['macd_indicator'] = (value, 1.0)
-        self.indicators['macd_reverse'] = (value, 1.0)
-
-    def calc_bollinger_bands(self):
-        #bollinger band volatility
-        value = 0.0
-        self.indicators['bollinger_bands'] = (value, 1.0)
-
-    def calc_breakthrough(self):
-        #support/resistance 
-        #approaches supp/resist 1 goes to 0, if breakthrough goes to 1
-        value = 0.0
-        self.indicators['breakthrough'] = (value, 1.0)
 

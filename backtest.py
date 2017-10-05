@@ -37,14 +37,17 @@ def backtest():
         best = ()
         for symbol in cfg.tickers:
             evals[symbol] = lyz.Analyze(symbol, date)
+            print symbol, evals[symbol].evaluation
             #no nflx data until 2002
             if evals[symbol].price == 0.0: 
                 continue
-            if not best or abs(evals[symbol].evaluation) > abs(best[1]):
+            if best == () or abs(evals[symbol].evaluation) > abs(best[1]):
+                print symbol, 'set best'
                 best = (symbol, evals[symbol].evaluation)
 
         #choose best evaluation
         choice = evals[best[0]]
+        print choice.symbol, choice.evaluation
 
         #trade if we have the money to do so
             #no short selling for now
@@ -89,9 +92,4 @@ def backtest():
 
     #debug spacing
     print
-
-def best_eval(evals):
-    #break tie with shareprice, lower = better
-    #use absolute value, more negative = better sell
-    return [('NFLX', 0.0)]
 

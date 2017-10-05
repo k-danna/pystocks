@@ -5,8 +5,7 @@ import config as cfg
 from misc import *
 
 class API(object):
-    def __init__(self, interval):
-        self.interval = interval
+    def __init__(self):
         msg('connected to api', '+')
 
     def buy(self, symbol, shares, price, date):
@@ -33,6 +32,15 @@ class API(object):
             self.sell(symbol, shares, price, date)
         elif shares < 0:
             self.buy(symbol, shares, price, date)
+
+    def reverse(self, symbol, price, date):
+        shares = cfg.account.positions[symbol]
+        if shares > 0:
+            self.sell(symbol, shares, price, date)
+            self.buy(symbol, shares, price, date)
+        elif shares < 0:
+            self.buy(symbol, shares, price, date)
+            self.sell(symbol, shares, price, date)
 
     def get_balance(self):
         pass

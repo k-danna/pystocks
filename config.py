@@ -1,4 +1,6 @@
 
+import random
+
 from datetime import datetime
 from account import Account
 from database import Database
@@ -17,9 +19,6 @@ print welcome
 backtest = True
 test_begin = datetime(1995, 01, 01)
 
-#refresh rate for market ticks in seconds
-tick_interval = 10.0
-
 #target tickers for trading
 tickers = ['NFLX', 'AAPL', 'NEE', 'FNB']
 
@@ -28,7 +27,6 @@ start_cash = 3000
 risk = 0.3
 commission = 7.95
 minshares = 10
-tick_interval = 10
 eval_threshold = 0.99
 random_trades = True
 
@@ -36,13 +34,13 @@ random_trades = True
 debug = True
 log_level = 0 #0-debug, 1-info
 seed = 42
-random.seed(cfg.seed)
+random.seed(seed)
 
 #init database
 db = Database('test.db')
 
 #init api
-api = API(tick_interval)
+api = API()
 
 #init account
 account = Account()
