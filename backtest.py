@@ -8,19 +8,12 @@ import analyze
 from misc import msg
 
 def test():
-    
-    #TODO: backtest starting each day
-        #save and avg stats per each
-        #batch test with random intervals, starting points
-            #this solves trading in depression vs bubble and overfitting
-                #test with randomly located, length intervals of time
-
     #iterate daily through weekdays
     for day in rrule.rrule(rrule.DAILY, dtstart=cfg.test_begin, 
             until=cfg.test_end):
 
         #skip weekends, holidays (only for holidays 1995 onward)
-        date = str(day.date()) #formate date for db
+        date = str(day.date())
         if day.weekday() > 4 or date in cfg.holidays:
             continue
 
@@ -59,15 +52,29 @@ def test():
         #num trades per symbol
         #good bad trade ratio
         #gain/loss, profit
-        #volatility measure
         #exposure/risk (max in market at one time)
         #return per year
         #risk adjusted return
     
     #output/store min/max/avg net stats for all batches
 
-    #debug spacing
-    print
-
 def train():
+    #TODO: backtest starting each day
+        #save and avg stats per each
+        #batch test with random intervals, starting points
+            #this solves trading in depression vs bubble and overfitting
+                #test with randomly located, length intervals of time
+
+    #output/store batch stats
+        #data time interval (bars)
+    #min/max/avg
+        #trade time length
+        #num trades per symbol
+        #good bad trade ratio
+        #gain/loss, profit
+        #exposure/risk (max in market at one time)
+        #return per year
+        #risk adjusted return
+    
+    #output/store min/max/avg net stats for all batches
     pass

@@ -98,13 +98,14 @@ def pick_trade(choice):
     min_sellpower = cfg.commission
     buypower = cfg.api.account_buypower()
     shares = int(buypower / choice.price)
+    position = cfg.api.account_positions()[choice.symbol][0]
     #buy
     if (choice.evaluation > cfg.eval_threshold 
-            and buypower > min_buypower):
+            and buypower > min_buypower and position <= 0):
         return (choice.symbol, choice.price, shares)
     #sell
     elif (choice.evaluation < cfg.eval_threshold 
-            and buypower > min_sellpower):
+            and buypower > min_sellpower and position > 0):
         return (choice.symbol, choice.price, -shares)
     #do nothing
     return (choice.symbol, choice.price, 0.0)
