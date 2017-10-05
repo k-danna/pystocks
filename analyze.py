@@ -9,8 +9,9 @@ import talib as ta
 #https://github.com/mrjbq7/ta-lib
 #http://www.eickonomics.com/posts/2014-03-25-python-vs-R-adding-TA-
         #indicators/
+
 import config as cfg
-from misc import *
+from misc import msg
 
 class Analyze(object):
     def __init__(self, symbol, date):
@@ -104,13 +105,4 @@ def pick_trade(choice):
         return (choice.symbol, choice.price, -shares)
     #do nothing
     return (choice.symbol, choice.price, 0.0)
-
-
-
-
-
-
-
-
-
 

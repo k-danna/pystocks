@@ -7,8 +7,8 @@ import time
 from datetime import datetime
 
 import config as cfg
-import backtest as bt
-from misc import *
+from backtest import train, test
+from misc import msg
 
 def main():
     #general init done on config import
@@ -17,7 +17,7 @@ def main():
     #backtest algorithm
     msg('beginning backtest\n', '+')
     if cfg.backtest:
-        bt.test()
+        test()
         msg('done testing', '+')
         cfg.account.info(cfg.today)
 

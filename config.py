@@ -1,10 +1,10 @@
 
 import random
-
 from datetime import datetime
+
+from api import API
 from account import Account
 from database import Database
-from api import API
 
 #program info
 prog_name = 'pystocks'

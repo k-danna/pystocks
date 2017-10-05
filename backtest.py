@@ -3,9 +3,9 @@ import random
 from dateutil import rrule
 from datetime import datetime, timedelta
 
-import analyze as lyz
 import config as cfg
-from misc import *
+import analyze
+from misc import msg
 
 def test():
     
@@ -31,13 +31,13 @@ def test():
         #analyze all symbols 
         evals = {}
         for symbol in cfg.tickers:
-            evals[symbol] = lyz.Analyze(symbol, date)
+            evals[symbol] = analyze.Analyze(symbol, date)
 
         #choose best evaluation
-        choice = lyz.best_eval(evals)
+        choice = analyze.best_eval(evals)
 
         #create trade to buy/sell/pass number of shares at price
-        symbol, price, shares = lyz.pick_trade(choice)
+        symbol, price, shares = analyze.pick_trade(choice)
         if shares > 0:
             cfg.api.buy(symbol, shares, price, date)
         elif shares < 0:
@@ -69,3 +69,5 @@ def test():
     #debug spacing
     print
 
+def train():
+    pass

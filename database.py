@@ -4,7 +4,7 @@ import csv
 import sqlite3 as sql
 
 import config as cfg
-from misc import *
+from misc import msg
 
 class Database(object):
     def __init__(self, name):

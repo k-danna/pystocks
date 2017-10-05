@@ -1,6 +1,6 @@
 
 import config as cfg
-from misc import *
+from misc import msg
 
 class Account(object):
     def __init__(self, name='testaccount'):

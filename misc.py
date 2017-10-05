@@ -1,6 +1,5 @@
 
 import config as cfg
-from math import floor
 
 #pretty print json object
 def print_json(json, depth=1):
@@ -48,8 +47,4 @@ def msg(string, c='*', ind=0,):
     for _ in range(ind):
         print '    ',
     print '[%s] %s' % (c, string)
-
-#message on program start
-def welcome():
-    print '%s v%s' % (cfg.prog_name, cfg.prog_version)
 

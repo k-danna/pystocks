@@ -2,8 +2,8 @@
 #simple wrapper for trading api
 
 import config as cfg
-import analyze as lyz
-from misc import *
+import analyze
+from misc import msg
 
 class API(object):
     def __init__(self):
@@ -45,7 +45,7 @@ class API(object):
 
     def close_all(self, date):
         for symbol in cfg.tickers:
-            price = lyz.Analyze(symbol, date).price
+            price = analyze.Analyze(symbol, date).price
             self.flatten(symbol, price, date)
         pass
 
