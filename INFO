@@ -2,19 +2,22 @@
 program that tests and can execute a trading algorithm
 
 TODO:
+    backtest
+        use numpy arrays for quotes, etc
+        compatible with talib
+        transition to talib
     analyze class
         all indicators
         eval
         pick_trade
-    backtest
-        output stats
     everywhere
         round all cash values down to two decimal places, int round shares
     analyze
-        pick_trades share count
+        pick_trades
+            share count
     config
         organize, group into dicts, etc
-    train
+    backtest (train)
         batch testing
         more stats
     auto update csv files

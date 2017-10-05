@@ -187,7 +187,7 @@ class Account(object):
         stats['min_trade_len'] = min(trade_lengths)
         stats['max_trade_len'] = max(trade_lengths)
         stats['avg_trade_len'] = sum(trade_lengths) / len(trade_lengths)
-        
+
         return stats
 
     def info(self, date):
