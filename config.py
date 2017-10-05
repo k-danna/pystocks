@@ -18,6 +18,7 @@ print welcome
 #use historical data to test algo
 backtest = True
 test_begin = datetime(1995, 01, 01)
+test_end = datetime(2017, 9, 29)
 
 #target tickers for trading
 tickers = ['NFLX', 'AAPL', 'NEE', 'FNB']

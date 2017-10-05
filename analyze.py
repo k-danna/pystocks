@@ -80,3 +80,37 @@ class Analyze(object):
             scalar = 1 if random.random() < 0.5 else -1
             self.evaluation = scalar * random.random()
 
+#chooses symbol based on evaluation
+def best_eval(evals):
+    best = ()
+    for symbol in evals:
+        if evals[symbol].price == 0.0: #no NFLX data until 2002
+            continue
+        if not best or abs(evals[symbol].evaluation) > abs(best[1]):
+            best = (symbol, evals[symbol].evaluation)
+    return evals[best[0]]
+
+def pick_trade(choice):
+    min_buypower = cfg.minshares * choice.price + 2 * cfg.commission
+    min_sellpower = cfg.commission
+    shares = int(cfg.account.buypower / choice.price)
+    #buy
+    if (choice.evaluation > cfg.eval_threshold 
+            and cfg.account.buypower > min_buypower):
+        return (choice.symbol, choice.price, shares)
+    #sell
+    elif (choice.evaluation < cfg.eval_threshold 
+            and cfg.account.buypower > min_sellpower):
+        return (choice.symbol, choice.price, -shares)
+    #do nothing
+    return (choice.symbol, choice.price, 0.0)
+
+
+
+
+
+
+
+
+
+
