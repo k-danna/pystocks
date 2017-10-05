@@ -20,6 +20,7 @@ class Analyze(object):
         self.indicators = {'macd': (0.0, 1.0)} #indicator: (value, weight)
         self.evaluation = 0.0
         self.price = 0.0
+        self.no_data = False
 
         self.calc_indicators()
         self.evaluate()
@@ -35,6 +36,7 @@ class Analyze(object):
 
         if len(data) == 0:
             #msg('no data: %s' % self.symbol)
+            self.no_data = True
             return
 
         #unpack data
@@ -85,7 +87,7 @@ class Analyze(object):
 def best_eval(evals):
     best = ()
     for symbol in evals:
-        if evals[symbol].price == 0.0: #no NFLX data until 2002
+        if evals[symbol].no_data: #no nflx data until 2002
             continue
         if not best or abs(evals[symbol].evaluation) > abs(best[1]):
             best = (symbol, evals[symbol].evaluation)
@@ -94,14 +96,15 @@ def best_eval(evals):
 def pick_trade(choice):
     min_buypower = cfg.minshares * choice.price + 2 * cfg.commission
     min_sellpower = cfg.commission
-    shares = int(cfg.account.buypower / choice.price)
+    buypower = cfg.api.account_buypower()
+    shares = int(buypower / choice.price)
     #buy
     if (choice.evaluation > cfg.eval_threshold 
-            and cfg.account.buypower > min_buypower):
+            and buypower > min_buypower):
         return (choice.symbol, choice.price, shares)
     #sell
     elif (choice.evaluation < cfg.eval_threshold 
-            and cfg.account.buypower > min_sellpower):
+            and buypower > min_sellpower):
         return (choice.symbol, choice.price, -shares)
     #do nothing
     return (choice.symbol, choice.price, 0.0)

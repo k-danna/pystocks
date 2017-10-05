@@ -3,7 +3,6 @@ import random
 from datetime import datetime
 
 from api import API
-from account import Account
 from database import Database
 
 #program info
@@ -40,11 +39,8 @@ random.seed(seed)
 #init database
 db = Database('test.db')
 
-#init api
+#init api and account
 api = API()
-
-#init account
-account = Account()
 
 #load api obj, set key/secret from encrypted file
 holidays = [

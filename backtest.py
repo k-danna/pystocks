@@ -44,13 +44,13 @@ def test():
             cfg.api.flatten(symbol, price, date)
         
         #update account at end of day
-        cfg.account.update(date)
+        cfg.api.update_account(date)
 
     #flatten any open positions at end
     cfg.api.close_all(str(cfg.test_end.date))
 
     #update account
-    cfg.account.update(date)
+    cfg.api.update_account(date)
 
     #output/store batch stats
         #data time interval (bars)
