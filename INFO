@@ -2,6 +2,10 @@
 program that tests and can execute a trading algorithm
 
 TODO:
+    api
+        print msg in calc_stats for profits
+        aapl trade anomolies
+            all have -15.9 profit...
     analyze class
         fix macd calculation
             add indicator as positive number when macd says up

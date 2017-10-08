@@ -154,8 +154,8 @@ class Account(object):
                 profit = ((shares * price_sold - shares * price_bought) 
                         - 2 * cfg.commission)
                 profits.append(profit)
-                msg('%s %s %s' % (date_sold, symbol, profit), c=(
-                        '+' if profit > 0 else '-'))
+                #msg('%s %s %s' % (date_sold, symbol, profit), c=(
+                #        '+' if profit > 0 else '-'))
                 
                 #track trade timeframes
                 sold = datetime.strptime(date_sold, '%Y-%m-%d')
