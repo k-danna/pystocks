@@ -15,15 +15,16 @@ def main():
 
     #train weights
     if cfg.train:
-        msg('beginning to train\n', '+')
+        msg('beginning to train', '+')
         train()
         msg('done training', '+')
 
     #backtest algorithm
     if cfg.backtest:
-        msg('beginning backtest\n', '+')
+        msg('beginning backtest', '+')
+        start = time.time()
         test()
-        msg('done testing', '+')
+        msg('finished testing in %s' % (time.time() - start), '+')
         cfg.api.account_info(cfg.today)
 
     #msg('monitoring specified symbols')

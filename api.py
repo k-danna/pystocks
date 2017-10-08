@@ -12,7 +12,7 @@ class API(object):
 
     def buy(self, symbol, shares, price, date):
         #FIXME: output to log file 
-        #msg('%s BUY %s %s@%s' % (date, symbol, shares, price))
+        msg('%s BUY %s %s@%s' % (date, symbol, shares, price), ind=1)
         position, _, _ = self.account.positions[symbol]
         self.account.cash -= cfg.commission
         self.account.cash -= (shares * price)
@@ -22,7 +22,7 @@ class API(object):
 
     def sell(self, symbol, shares, price, date):
         #FIXME: output to log file
-        #msg('%s SELL %s %s@%s' % (date, symbol, shares, price))
+        msg('%s SELL %s %s@%s' % (date, symbol, shares, price), ind=1)
         position, prev_price, prev_date = self.account.positions[symbol]
         self.account.cash -= cfg.commission
         self.account.cash += (shares * price)
@@ -158,19 +158,21 @@ class Account(object):
                         '+' if profit > 0 else '-'))
                 
                 #track trade timeframes
-                year, month, day = [int(x) for x in date_sold.split('-')]
-                sold = datetime(year, month, day)
-                year, month, day = [int(x) for x in date_bought.split('-')]
-                bought = datetime(year, month, day)
+                sold = datetime.strptime(date_sold, '%Y-%m-%d')
+                bought = datetime.strptime(date_bought, '%Y-%m-%d')
                 trade_lengths.append((sold - bought).days)
 
         #calc account based stats
         stats['inital_investment'] = cfg.start_cash
         stats['networth'] = self.networth
         stats['roi'] = ( self.networth - cfg.start_cash) / cfg.start_cash
-        
-        #calc trade count stats
         stats['total_trades'] = sum(trade_counts)
+        
+        #dont calc anything if no trades took place
+        if stats['total_trades'] == 0:
+            return stats
+
+        #calc trade count stats
         #stats['min_trades_symbol'] = min(trade_counts)
         #stats['max_trades_symbol'] = max(trade_counts)
         #stats['avg_trades_symbol'] = sum(trade_counts) / len(trade_counts)

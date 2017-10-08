@@ -1,5 +1,6 @@
 
 import random
+import time
 from dateutil import rrule
 from datetime import datetime, timedelta
 
@@ -17,6 +18,8 @@ def test():
         if day.weekday() > 4 or date in cfg.holidays:
             continue
 
+        day_start = time.time()
+
         #DEBUG
         #if date != '2017-09-29':
         #    continue
@@ -25,9 +28,11 @@ def test():
         evals = {}
         for symbol in cfg.tickers:
             evals[symbol] = analyze.Analyze(symbol, date)
+            print '    eval: ', symbol, evals[symbol].evaluation
 
         #choose best evaluation
         choice = analyze.best_eval(evals)
+        print '        chose: %s' % choice.symbol
 
         #create trade to buy/sell/pass number of shares at price
         symbol, price, shares = analyze.pick_trade(choice)
@@ -35,12 +40,14 @@ def test():
             cfg.api.buy(symbol, shares, price, date)
         elif shares < 0:
             cfg.api.flatten(symbol, price, date)
+
+        msg('%s analyzed in %s' % (date, time.time() - day_start))
         
         #update account at end of day
         cfg.api.update_account(date)
 
     #flatten any open positions at end
-    cfg.api.close_all(str(cfg.test_end.date))
+    cfg.api.close_all(str(cfg.test_end.date()))
 
     #update account
     cfg.api.update_account(date)

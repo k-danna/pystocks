@@ -2,22 +2,28 @@
 program that tests and can execute a trading algorithm
 
 TODO:
-    backtest
-        use numpy arrays for quotes, etc
-        compatible with talib
-        transition to talib
     analyze class
-        all indicators
-        eval
-        pick_trade
+        fix macd calculation
+            add indicator as positive number when macd says up
+            normalize the value between 0 and 1?
+            no need to normalize?
+    analyze class
+        decide on and calc all indicators
+        eval algo
+        pick_trade algo
     everywhere
         round all cash values down to two decimal places, int round shares
+    optimize backtest
+        add indicators to db
+            query needed ones?
+        alternatively query all data, calc all indicators at beginning
+            index array to current day on analyze
     analyze
         pick_trades
             share count
     config
-        organize, group into dicts, etc
-    backtest (train)
+        organize, cleanup (into dicts?)
+    backtest (train weights)
         batch testing
         more stats
     auto update csv files

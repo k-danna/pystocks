@@ -16,7 +16,7 @@ print welcome
 
 #use historical data to test algo
 backtest = True
-test_begin = datetime(1995, 01, 01)
+test_begin = datetime(2016, 9, 29)
 test_end = datetime(2017, 9, 29)
 
 #train info
@@ -30,7 +30,7 @@ start_cash = 3000
 risk = 0.3
 commission = 7.95
 minshares = 10
-eval_threshold = 0.99
+eval_threshold = 0.0
 random_trades = True
 
 #misc
