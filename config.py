@@ -29,9 +29,9 @@ tickers = ['NFLX', 'AAPL', 'NEE', 'FNB']
 start_cash = 3000
 risk = 0.3
 commission = 7.95
-minshares = 10
-eval_threshold = 0.0
-random_trades = True
+minshares = 1
+eval_threshold = 0.95
+random_trades = False
 
 #misc
 debug = True

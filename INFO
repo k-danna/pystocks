@@ -2,15 +2,11 @@
 program that tests and can execute a trading algorithm
 
 TODO:
-    api
-        print msg in calc_stats for profits
-        aapl trade anomolies
-            all have -15.9 profit...
-    analyze class
-        fix macd calculation
-            add indicator as positive number when macd says up
-            normalize the value between 0 and 1?
-            no need to normalize?
+    analyze
+        all indicators are set 1 or -1 to indicate a buy or sell
+        weights are adjusted for how good indicator
+            learned?
+            manual?
     analyze class
         decide on and calc all indicators
         eval algo
@@ -18,6 +14,11 @@ TODO:
     everywhere
         round all cash values down to two decimal places, int round shares
     optimize backtest
+        on prog start
+            get data
+            calc all indicators
+        each day query needed info
+        this wont work as each day we get new data anyways
         add indicators to db
             query needed ones?
         alternatively query all data, calc all indicators at beginning

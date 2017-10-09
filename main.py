@@ -24,7 +24,7 @@ def main():
         msg('beginning backtest', '+')
         start = time.time()
         test()
-        msg('finished testing in %s' % (time.time() - start), '+')
+        msg('finished testing in %s' % round(time.time() - start, 3), '+')
         cfg.api.account_info(cfg.today)
 
     #msg('monitoring specified symbols')

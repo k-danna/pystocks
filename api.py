@@ -178,7 +178,9 @@ class Account(object):
         #stats['avg_trades_symbol'] = sum(trade_counts) / len(trade_counts)
         stats['good_trades'] = float(len([x for x in profits if x > 0.0]))
         stats['bad_trades'] = float(len([x for x in profits if x <= 0.0]))
-        stats['good/bad ratio'] = stats['good_trades'] / stats['bad_trades']
+        stats['good/bad ratio'] = (stats['good_trades'] / 
+                stats['bad_trades'] if stats['bad_trades'] != 0 
+                else stats['good_trades'])
         
         #calc profit stats
         stats['min_profit'] = min(profits)
@@ -193,9 +195,15 @@ class Account(object):
         return stats
 
     def info(self, date):
+        #DEBUG
+        for symbol in self.trades:
+            print '\n', symbol, 'trades'
+            for trade in self.trades[symbol]:
+                print '    ', trade
+
         self.update(date)
         stats = self.calc_stats()
         msg('account info for \'%s\'' % self.name)
         for stat in self.stat_listing:
-            msg('%20s: %s' % (stat, stats[stat]), ind=1)
+            msg('%20s: %0.2f' % (stat, stats[stat]), ind=1)
 

@@ -45,6 +45,6 @@ def msg(string, c='*', ind=0,):
     if cfg.log_level > 0 and c == '*':
         return
     for _ in range(ind):
-        print '    ',
+        print '   ',
     print '[%s] %s' % (c, string)
 

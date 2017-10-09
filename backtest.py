@@ -21,8 +21,8 @@ def test():
         day_start = time.time()
 
         #DEBUG
-        if date != '2017-09-29':
-            continue
+        #if date != '2017-09-29':
+        #    continue
 
         #analyze all symbols 
         evals = {}
@@ -30,18 +30,19 @@ def test():
             evals[symbol] = analyze.Analyze(symbol, date)
             print '    eval: ', symbol, evals[symbol].evaluation
 
-        #choose best evaluation
-        choice = analyze.best_eval(evals)
-        print '        chose: %s' % choice.symbol
+        #choose best evaluations
+        choices = analyze.best_eval(evals)
+        for choice in choices:
+            #create trade to buy/sell/pass number of shares at price
+            symbol, price, shares = analyze.pick_trade(choice)
+            if shares > 0:
+                cfg.api.buy(symbol, shares, price, date)
+            elif shares < 0:
+                cfg.api.flatten(symbol, price, date)
 
-        #create trade to buy/sell/pass number of shares at price
-        symbol, price, shares = analyze.pick_trade(choice)
-        if shares > 0:
-            cfg.api.buy(symbol, shares, price, date)
-        elif shares < 0:
-            cfg.api.flatten(symbol, price, date)
-
-        msg('%s analyzed in %s' % (date, time.time() - day_start))
+        elapsed = round(time.time() - day_start, 3)
+        msg('%s analyzed in %s (%s - %s)' % (date, elapsed,
+                cfg.api.account_balance(), cfg.api.account_networth()))
         
         #update account at end of day
         cfg.api.update_account(date)
@@ -66,6 +67,15 @@ def test():
     #output/store min/max/avg net stats for all batches
 
 def train():
+
+    #choose random day and time interval (min 1 year)
+        #backtest choosing subset of indicators, weights
+            #for each sell adjust weights accordingly
+                #bad trade - subtract weight
+                #good trade - add weight
+        #return the weights
+        #weights passed to test phase
+
     #TODO: backtest starting each day
         #save and avg stats per each
         #batch test with random intervals, starting points
