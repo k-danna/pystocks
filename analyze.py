@@ -2,6 +2,7 @@
 import sys
 import random
 from datetime import datetime
+import matplotlib.pyplot as plt
 import numpy as np
 import talib as ta
     #list of functions
@@ -22,8 +23,8 @@ class Analyze(object):
         self.indicators = self.init_indicators() #indicator: (value, weight)
         self.weights = self.init_indicators(val=1.0)
         self.evaluation = 0.0
-        self.data = self.get_data()
-
+        
+        self.get_data()
         if self.data.size > 0:
             self.calc_indicators()
             self.evaluate()
@@ -43,7 +44,14 @@ class Analyze(object):
                 break
         #for backtest
         self.price = float(data[-1][1]) if len(data) > 0 else 0.0
-        return np.asarray(data)
+        #unpack data
+        self.data = np.asarray(data)
+        self.indicators['date'] = np.asarray([datetime.strptime(x, 
+                '%Y-%m-%d') for x in self.data[:, 0]])
+        self.indicators['price'] = np.asarray([float(x) 
+                for x in self.data[:, 1]])
+        self.indicators['volume'] = np.asarray([float(x) 
+                for x in self.data[:, 2]])
 
     def init_indicators(self, val=0.0):
         indicators = {}
@@ -53,17 +61,28 @@ class Analyze(object):
         return indicators
 
     def calc_indicators(self):
-        #unpack data
-        dates = self.data[:, 0]
-        prices = np.asarray([float(x) for x in self.data[:, 1]])
-        volumes = self.data[:, 2]
-
         #calculate macd
-        macd, macdsignal, macdhist = ta.MACD(prices, fastperiod=12, 
-                slowperiod=26, signalperiod=9)
-        self.indicators['macd'] = macd[-1]
-        self.indicators['macdsignal'] = macdsignal[-1]
-        self.indicators['macdhist'] = macdhist[-1]
+        macd, macdsignal, macdhist = ta.MACD(self.indicators['price'], 
+                fastperiod=12, slowperiod=26, signalperiod=9)
+        self.indicators['macd'] = macd
+        self.indicators['macdsignal'] = macdsignal
+        self.indicators['macdhist'] = macdhist
+
+        self.plot(['price', 'macd'])
+        #FIXME:
+        #self.indicators.plot(y=['prices'])
+
+        sys.exit()
+
+    def plot(self, keys):
+        for key in keys:
+            plt.plot(self.indicators['date'], self.indicators[key],
+                    '-', label=key)
+            plt.title('FIXME')
+            plt.xlabel('date')
+            plt.ylabel(key)
+            plt.legend(loc='best')
+            plt.show()
 
     def evaluate(self):
         evaluation = 0.0

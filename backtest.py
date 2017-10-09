@@ -21,8 +21,8 @@ def test():
         day_start = time.time()
 
         #DEBUG
-        #if date != '2017-09-29':
-        #    continue
+        if date != '2017-09-29':
+            continue
 
         #analyze all symbols 
         evals = {}
