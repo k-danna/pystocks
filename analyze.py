@@ -61,28 +61,47 @@ class Analyze(object):
         return indicators
 
     def calc_indicators(self):
-        #calculate macd
+        #calc macd
         macd, macdsignal, macdhist = ta.MACD(self.indicators['price'], 
                 fastperiod=12, slowperiod=26, signalperiod=9)
         self.indicators['macd'] = macd
         self.indicators['macdsignal'] = macdsignal
         self.indicators['macdhist'] = macdhist
 
-        self.plot(['price', 'macd'])
+        #calc ema
+        self.indicators['ema12'] = ta.EMA(self.indicators['price'],
+            timeperiod=12)
+        self.indicators['ema26'] = ta.EMA(self.indicators['price'],
+            timeperiod=26)
+
+        #calc bollinger bands
+        upper, middle, lower = ta.BBANDS(self.indicators['price'],
+            timeperiod=5, nbdevup=2, nbdevdn=2, matype=0)
+        self.indicators['upperbollinger'] = upper
+        self.indicators['middlebollinger'] = middle
+        self.indicators['lowerbollinger'] = lower
+
+        self.plot(['price', 'ema12', 'ema26'], days=100)
+        self.plot(['price', 'upperbollinger', 'middlebollinger',
+                'lowerbollinger'], days=100)
         #FIXME:
         #self.indicators.plot(y=['prices'])
 
         sys.exit()
 
-    def plot(self, keys):
+    def plot(self, keys, days=0):
         for key in keys:
-            plt.plot(self.indicators['date'], self.indicators[key],
-                    '-', label=key)
-            plt.title('FIXME')
-            plt.xlabel('date')
-            plt.ylabel(key)
-            plt.legend(loc='best')
-            plt.show()
+            y = self.indicators[key][-days:-1]
+            x = self.indicators['date'][-days:-1]
+            if key == 'price':
+                plt.plot(x, y,'b-', color='black', label=key)
+            else:
+                plt.plot(x, y,'-', label=key)
+        #plt.title('FIXME')
+        plt.xlabel('date')
+        plt.ylabel('price')
+        plt.legend(loc='best')
+        plt.show()
 
     def evaluate(self):
         evaluation = 0.0
