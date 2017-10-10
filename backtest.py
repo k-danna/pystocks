@@ -8,7 +8,7 @@ import config as cfg
 import analyze
 from misc import msg
 
-def test():
+def backtest(weights):
     #iterate daily through weekdays
     for day in rrule.rrule(rrule.DAILY, dtstart=cfg.test_begin, 
             until=cfg.test_end):
@@ -27,8 +27,8 @@ def test():
         #analyze all symbols 
         evals = {}
         for symbol in cfg.tickers:
-            evals[symbol] = analyze.Analyze(symbol, date)
-            print '    eval: ', symbol, evals[symbol].evaluation
+            evals[symbol] = analyze.Analyze(symbol, date, weights)
+            #print '    eval: ', symbol, evals[symbol].evaluation
 
         #choose best evaluations
         choices = analyze.best_eval(evals)
@@ -94,4 +94,4 @@ def train():
         #risk adjusted return
     
     #output/store min/max/avg net stats for all batches
-    pass
+    return {}

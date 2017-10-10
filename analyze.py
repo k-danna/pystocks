@@ -16,7 +16,7 @@ import config as cfg
 from misc import msg
 
 class Analyze(object):
-    def __init__(self, symbol, date):
+    def __init__(self, symbol, date, weights):
         self.symbol = symbol
         self.date = date
         self.price = 0.0
@@ -24,7 +24,10 @@ class Analyze(object):
         self.indicator_listing = ['macd', 'bollinger', 'rsi', 'obv']
 
         self.indicators = self.init_indicators()
-        self.weights = self.init_indicators(val=1.0)
+        if weights:
+            self.weights = weights
+        else:
+            self.weights = self.init_indicators(val=1.0)
         self.get_data()
         if self.data.size > 0:
             self.calc_indicators()
@@ -43,9 +46,13 @@ class Analyze(object):
                     data.append(item)
             else:
                 break
+        self.data = np.asarray(data)
+
+        #just pass if no data
+        if not data:
+            return
 
         #unpack data
-        self.data = np.asarray(data)
         self.price = float(data[-1][1]) if len(data) > 0 else 0.0
         self.indicators['date'] = np.asarray([datetime.strptime(x, 
                 '%Y-%m-%d') for x in self.data[:, 0]])
@@ -76,21 +83,17 @@ class Analyze(object):
         self.indicators['macd_ind'] = macd_ind
         self.indicators['macd_signal'] = macd_signal
         self.indicators['macd_hist'] = macd_hist
+        
         #macd signal crossover
-        today = macd_ind[-1] - macd_signal[-1]
-        yesterday = macd_ind[-2] - macd_signal[-2]
-        #macd crosses above signal --> buy
-        if today > 0 and yesterday < 0:
-            self.indicators['macd'] = 1.0
-        #macd crosses below signal --> sell
-        elif today < 0 and yesterday > 0:
-            self.indicators['macd'] = -1.0
-
-        #debug
-        if yesterday * today < 0 and self.indicators['macd'] == 0.0:
-            print '        CROSSOVER ERROR: ', yesterday, today
-            print self.indicators['macd']
-            sys.exit()
+        if len(macd_ind) > 33: #need 34 days of prices
+            today = macd_ind[-1] - macd_signal[-1]
+            yesterday = macd_ind[-2] - macd_signal[-2]
+            #macd crosses above signal --> buy
+            if today > 0 and yesterday < 0:
+                self.indicators['macd'] = 1.0
+            #macd crosses below signal --> sell
+            elif today < 0 and yesterday > 0:
+                self.indicators['macd'] = -1.0
 
         #other indicators
             #price diverges from macd --> end of current trend

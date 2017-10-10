@@ -50,7 +50,7 @@ class API(object):
 
     def close_all(self, date):
         for symbol in cfg.tickers:
-            price = analyze.Analyze(symbol, date).price
+            price = analyze.Analyze(symbol, date, {}).price
             self.flatten(symbol, price, date)
         pass
 

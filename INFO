@@ -2,43 +2,54 @@
 program that tests and can execute a trading algorithm
 
 TODO:
+    optimize (major refactor)
+        analysis obj per stock
+            prog start calc and store all of following
+                load all historical data
+                calc all indicators
+                eval each day
+            method that returns info for a date
+                called during training, testing
+            backtest
+                call method for day info
+                thats it
+            additionally stores trades, calcs stats
+            will also simplify plotting
+                
+    backtest
+        add max/min/avg yearly return stats
+    backtest
+        order choices by eval then by cheapest share
+            buy most likely to trend, then cheapest first
     analyze
         all indicators are set 1 or -1 to indicate a buy or sell
         weights are adjusted for how good indicator
             learned?
             manual?
+        eval threshold
+            how many indicators pointing up vs down
+                weight down more heavily
+            weighted sum should be above 80%? max value
     analyze class
-        decide on and calc all indicators
-        eval algo
-        pick_trade algo
+        decide on, calc all indicators
+        better pick_trade algo
     everywhere
-        round all cash values down to two decimal places, int round shares
-    optimize backtest
-        on prog start
-            get data
-            calc all indicators
-        each day query needed info
-        this wont work as each day we get new data anyways
-        add indicators to db
-            query needed ones?
-        alternatively query all data, calc all indicators at beginning
-            index array to current day on analyze
+        round all cash values down to two decimal places on transaction
+        int round shares
     analyze
-        pick_trades
-            share count
+        pick_trades choose share count
+            base on eval, price, how many buying that day
     config
         organize, cleanup (into dicts?)
     backtest (train weights)
         batch testing
         more stats
-    auto update csv files
-        database.update_symbol()
     backtest
-        account for splits, dividends
+        better account for splits, dividends
 
 
 FUTURE:
-    auto download an updated csv
+    auto query current data/csv and add to db
         https://github.com/dennislwy/YahooFinanceAPI
         https://stackoverflow.com/questions/44105187/error-in-downloading-csv-from-new-yahoo-finance-historical-data
     ACCOUNT FOR SPLITS / DIVIDENDS

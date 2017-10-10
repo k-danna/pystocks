@@ -16,6 +16,7 @@ print welcome
 
 #use historical data to test algo
 backtest = True
+#test_begin = datetime(2002, 5, 20) #couple days before nflx data
 test_begin = datetime(2016, 9, 29)
 test_end = datetime(2017, 9, 29)
 

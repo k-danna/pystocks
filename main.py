@@ -7,23 +7,24 @@ import time
 from datetime import datetime
 
 import config as cfg
-from backtest import train, test
+from backtest import train, backtest
 from misc import msg
 
 def main():
     #general init done on config import
 
     #train weights
+    weights = {}
     if cfg.train:
         msg('beginning to train', '+')
-        train()
+        weights = train()
         msg('done training', '+')
 
     #backtest algorithm
     if cfg.backtest:
         msg('beginning backtest', '+')
         start = time.time()
-        test()
+        backtest(weights)
         msg('finished testing in %s' % round(time.time() - start, 3), '+')
         cfg.api.account_info(cfg.today)
 
