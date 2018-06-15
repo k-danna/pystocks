@@ -15,9 +15,11 @@ TODO:
                 thats it
             additionally stores trades, calcs stats
             will also simplify plotting
-                
     backtest
-        add max/min/avg yearly return stats
+        add stats for the trades themselves
+            min/max/avg roi
+            min/max/avg amounts invested
+            max/min/avg yearly return stats
     backtest
         order choices by eval then by cheapest share
             buy most likely to trend, then cheapest first
